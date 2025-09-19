@@ -9,6 +9,8 @@ public interface Payment {
 
     public void setAmount(int amount);
 
+    public String getState();
+
     String getPaymentMethodName();
 
 }

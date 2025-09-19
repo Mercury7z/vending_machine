@@ -3,6 +3,7 @@ import model.*;
 import util.UniversalArray;
 import util.UniversalArrayImpl;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AppRunner {
@@ -69,22 +70,33 @@ public class AppRunner {
             System.out.println("Выберите удобный способ оплаты");
             System.out.println("Способ номер 1: приемник монет");
             System.out.println("Способ номер 2: приемник карт");
-            int userInput = sc.nextInt();
+            int userInput = 0;
+            try {
+                userInput = sc.nextInt();
+
+            }
+            catch (InputMismatchException e){
+                sc.nextLine();
+                System.out.println("Выберите вариант 1 или 2");
+                System.out.println("");
+            }
             int balance = 0;
             switch (userInput) {
                 case 1:
-                    balance = payAcceptor.getAmount();
-                    payAcceptor = new CoinAcceptor(balance);
+                    if(!payAcceptor.getState().equalsIgnoreCase("coinAcceptor")) {
+                        balance = payAcceptor.getAmount();
+                        payAcceptor = new CoinAcceptor(balance);
+                    }
                     payAcceptor.addBalance();
                     break;
                 case 2:
-                    balance = payAcceptor.getAmount();
-                    payAcceptor = new CardAcceptor(balance);
+                    if(!payAcceptor.getState().equalsIgnoreCase("cardAcceptor")){
+                        balance = payAcceptor.getAmount();
+                        payAcceptor = new CardAcceptor(balance);
+                    }
                     payAcceptor.addBalance();
                     break;
                     }
-                    payAcceptor.addBalance();
-
         }
         try {
             for (int i = 0; i < products.size(); i++) {

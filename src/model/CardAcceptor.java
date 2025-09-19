@@ -5,9 +5,11 @@ import java.util.Scanner;
 
 public class CardAcceptor implements Payment{
     private int moneyAmount;
+    private final String state = "cardAcceptor";
 
     public CardAcceptor (int amount) {
         this.moneyAmount = amount;
+
     }
 
     public CardAcceptor() {
@@ -20,6 +22,11 @@ public class CardAcceptor implements Payment{
 
     public void setAmount(int amount) {
         this.moneyAmount = amount;
+    }
+
+    @Override
+    public String getState() {
+        return state;
     }
 
     @Override
@@ -38,7 +45,6 @@ public class CardAcceptor implements Payment{
             if(checkUserBalance()) {
                 System.out.println("Платеж успешно прошел");
                 this.moneyAmount += 500;
-                return;
             }
             else {
                 System.out.println("На карте не хватает денег");
