@@ -16,8 +16,8 @@ public class AppRunner {
     private AppRunner() {
         products.addAll(new Product[]{
                 new Water(ActionLetter.B, 20),
-                new CocaCola(ActionLetter.C, 50),
-                new Soda(ActionLetter.D, 30),
+                new Soda(ActionLetter.C, 30),
+                new CocaCola(ActionLetter.D, 50),
                 new Snickers(ActionLetter.E, 80),
                 new Mars(ActionLetter.F, 80),
                 new Pistachios(ActionLetter.G, 130)
@@ -58,7 +58,13 @@ public class AppRunner {
         print(" a - Пополнить баланс");
         showActions(products);
         print(" h - Выйти");
-        String action = fromConsole().substring(0, 1);
+        String action = "";
+        try {
+            action = fromConsole().substring(0, 1);
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Нужно выбрать действие");
+        }
         if ("a".equalsIgnoreCase(action)) {
             coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
             print("Вы пополнили баланс на 10");
@@ -70,15 +76,14 @@ public class AppRunner {
                     coinAcceptor.setAmount(coinAcceptor.getAmount() - products.get(i).getPrice());
                     print("Вы купили " + products.get(i).getName());
                     break;
+                } else if ("h".equalsIgnoreCase(action)) {
+                    isExit = true;
+                    break;
                 }
             }
         } catch (IllegalArgumentException e) {
-            if ("h".equalsIgnoreCase(action)) {
-                isExit = true;
-            } else {
-                print("Недопустимая буква. Попрбуйте еще раз.");
-                chooseAction(products);
-            }
+            print("Недопустимая буква. Попрбуйте еще раз.");
+            chooseAction(products);
         }
 
 
