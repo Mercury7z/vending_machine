@@ -16,8 +16,8 @@ public class AppRunner {
     private AppRunner() {
         products.addAll(new Product[]{
                 new Water(ActionLetter.B, 20),
-                new CocaCola(ActionLetter.C, 50),
-                new Soda(ActionLetter.D, 30),
+                new Soda(ActionLetter.C, 30),
+                new CocaCola(ActionLetter.D, 50),
                 new Snickers(ActionLetter.E, 80),
                 new Mars(ActionLetter.F, 80),
                 new Pistachios(ActionLetter.G, 130)
@@ -55,9 +55,21 @@ public class AppRunner {
     }
 
     private void chooseAction(UniversalArray<Product> products) {
+        print(" a - Пополнить баланс");
         showActions(products);
         print(" h - Выйти");
-        String action = fromConsole().substring(0, 1);
+        String action = "";
+        try {
+            action = fromConsole().substring(0, 1);
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Нужно выбрать действие");
+        }
+        if ("a".equalsIgnoreCase(action)) {
+            coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
+            print("Вы пополнили баланс на 10");
+            return;
+        }
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
