@@ -98,23 +98,22 @@ public class AppRunner {
                     break;
                     }
         }
+        if ("h".equalsIgnoreCase(action)) {
+            isExit = true;
+        }
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
                     payAcceptor.setAmount(payAcceptor.getAmount() - products.get(i).getPrice());
                     print("Вы купили " + products.get(i).getName());
                     break;
-                } else if ("h".equalsIgnoreCase(action)) {
-                    isExit = true;
-                    break;
                 }
             }
         } catch (IllegalArgumentException e) {
+
             print("Недопустимая буква. Попрбуйте еще раз.");
             chooseAction(products);
         }
-
-
     }
 
     private void showActions(UniversalArray<Product> products) {
