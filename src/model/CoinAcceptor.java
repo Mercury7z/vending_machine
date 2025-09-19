@@ -2,6 +2,7 @@ package model;
 
 public class CoinAcceptor implements Payment{
     private int moneyAmount;
+    private final String state = "coinAcceptor";
 
     public int getAmount() {
         return moneyAmount;
@@ -9,6 +10,11 @@ public class CoinAcceptor implements Payment{
 
     public CoinAcceptor (int amount) {
         this.moneyAmount = amount;
+    }
+
+    @Override
+    public String getState() {
+        return state;
     }
 
     @Override
